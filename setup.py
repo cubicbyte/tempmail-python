@@ -15,7 +15,7 @@ setup(
     url='https://github.com/cubicbyte/py-tempmail',
     packages = find_packages(),
     license='MIT',
-    keywords='disposable-email temporary-email temp-mail temp-email email email-generator mail-generator',
+    keywords='disposable-email temporary-email temp-email temp-mail email mail email-generator mail-generator',
     install_requires=[
         'requests',
     ],
