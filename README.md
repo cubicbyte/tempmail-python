@@ -1,15 +1,15 @@
 # Python Temp Email Library
-**py-tempmail** is a Python library for generating and managing temporary email addresses using the 1secmail service. It provides functions for creating email addresses, checking for new messages, and retrieving message contents.
+**tempmail-python** is a Python library for generating and managing temporary email addresses using the 1secmail service. It provides functions for creating email addresses, checking for new messages, and retrieving message contents.
 
 ## Installation
-You can install py-tempmail using pip:
+You can install tempmail-python using pip:
 ```bash
-pip install py-tempmail
+pip install tempmail-python
 ```
 
 Or you can install it from source:
 ```bash
-pip install git+https://github.com/cubicbyte/py-tempmail.git
+pip install git+https://github.com/cubicbyte/tempmail-python.git
 ```
 
 ## Usage example
@@ -53,4 +53,4 @@ print(msg['body'])
 - `tempmail.DOMAINS`: List of available email domains.
 
 ## License
-py-tempmail is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+tempmail-python is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.

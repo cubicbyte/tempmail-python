@@ -1,4 +1,4 @@
-"""py-tempmail is a Python library for generating and managing temporary email addresses using the 1secmail service.
+"""tempmail-python is a Python library for generating and managing temporary email addresses using the 1secmail service.
 
 Example usage:
 ```python

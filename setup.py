@@ -5,14 +5,14 @@ def read(path: str) -> str:
         return f.read()
 
 setup(
-    name='py-tempmail',
+    name='tempmail-python',
     version='1.0.0',
     description='Python library for generating and managing temporary email addresses.',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
     author='cubicbyte',
     author_email='bmaruhnenko@gmail.com',
-    url='https://github.com/cubicbyte/py-tempmail',
+    url='https://github.com/cubicbyte/tempmail-python',
     packages = find_packages(),
     license='MIT',
     keywords='disposable-email temporary-email temp-email temp-mail email mail email-generator mail-generator',
