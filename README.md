@@ -12,45 +12,50 @@ Or you can install it from source:
 pip install git+https://github.com/cubicbyte/tempmail-python.git
 ```
 
-## Usage example
+## Examples
 
+Receive a message (e.g. activation code)
 ```python
-import tempmail
+from tempmail import EMail
 
-# Create a new email address
-email = tempmail.get_email()
-print(email)
+email = EMail()
 
-# Wait for a new message
-msg = tempmail.wait_for_message(email)
-print(msg['body'])
+# ... request some email ...
 
-```
-Output:
-```python
-# vhpeptbsne@1secmail.com
-# Hello World!
+msg = email.wait_for_message()
+print(msg.body)  # Hello World!\n
 ```
 
-Using message filters:
+Get all messages in the inbox
 ```python
-import tempmail
+from tempmail import EMail
 
-email = tempmail.get_email()
-print(email)
+email = EMail(username='example', domain='1secmail.com')
+inbox = email.get_inbox()
 
-# Wait for a new message from a specific sender
-msg = tempmail.wait_for_message(email, filter=lambda m: m['from'] == 'no-reply@example.com')
-print(msg['body'])
+for msg_info in inbox:
+    print(msg_info.subject, msg_info.message.body)
 ```
 
-## API
+Download an attachment
+```python
+from tempmail import EMail
 
-- `tempmail.get_email(username=None, domain=None)`: Generate a new email address.
-- `tempmail.get_inbox(email)`: Retrieve a list of message IDs for the specified email address.
-- `tempmail.get_message(email, id)`: Retrieve the contents of a message with the specified ID.
-- `tempmail.wait_for_message(email, timeout=None, filter=None)`: Wait for a new message to arrive at the specified email address. You can optionally provide a timeout (in seconds) and a filter function to check the contents of the message.
-- `tempmail.DOMAINS`: List of available email domains.
+email = EMail('example@1secmail.com')
+msg = email.wait_for_message()
+
+if msg.attachments:
+    attachment = msg.attachments[0]
+    data = attachment.download()
+
+    # Print
+    print(data)  # b'Hello World!\n'
+    print(data.decode('utf-8'))  # Hello World!\n
+
+    # Save to file
+    with open(attachment.filename, 'wb') as f:
+        f.write(data)
+```
 
 ## License
 tempmail-python is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
