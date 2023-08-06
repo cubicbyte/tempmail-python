@@ -2,6 +2,8 @@ import random
 import string
 import functools
 
+__all__ = ('random_string', 'cache')
+
 
 def random_string(length: int):
     return ''.join(random.choices(string.ascii_lowercase, k=length))
