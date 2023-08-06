@@ -14,7 +14,6 @@ print(f"New message received: {message['subject']}")```
 
 import time
 import random
-from functools import cache
 
 import requests
 
@@ -35,7 +34,7 @@ DOMAINS = [
 """List of allowed email domains"""
 
 
-@cache
+@utils.cache
 def _check_message(email: str, id: int, filter: callable) -> tuple[bool, dict[str, any]]:
     """Check if a message matches the filter"""
     message = get_message(email, id)
