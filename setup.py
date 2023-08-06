@@ -6,7 +6,7 @@ def read(path: str) -> str:
 
 setup(
     name='tempmail-python',
-    version='1.0.0',
+    version='2.0.0',
     description='Python library for generating and managing temporary email addresses.',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
