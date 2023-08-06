@@ -1,8 +1,15 @@
 """tempmail-python is a Python library for generating and managing temporary email addresses using the 1secmail service.
 
-Example usage:
+## Example usage:
 ```python
-TODO
+from tempmail import EMail
+
+email = EMail()
+
+# ... request some email ...
+
+msg = email.wait_for_message()
+print(msg.body)  # Hello World!\n
 ```
 """
 
