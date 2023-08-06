@@ -17,7 +17,7 @@ setup(
     license='MIT',
     keywords='disposable-email temporary-email temp-email temp-mail email mail email-generator mail-generator',
     install_requires=[
-        'requests',
+        'requests>=2.19.0',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
