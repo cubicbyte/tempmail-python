@@ -12,13 +12,15 @@ __all__ = ('OneSecMail',)
 class OneSecMail:
     """1secmail.com API wrapper"""
 
-    def __init__(self, username: str | None = None, domain: str | None = None) -> None:
-        self.session = requests.Session()
-        self.username = username or utils.random_string(10)
+    def __init__(self, email: str | None = None, username: str | None = None, domain: str | None = None) -> None:
+        if email is not None:
+            username, domain = email.split('@')
 
         if domain is not None and domain not in self.get_domains():
             raise ValueError(f'Invalid domain: {domain}')
 
+        self.session = requests.Session()
+        self.username = username or utils.random_string(10)
         self.domain = domain or random.choice(self.get_domains())
 
     def get_inbox(self) -> list['OneSecMail.MessageInfo']:
