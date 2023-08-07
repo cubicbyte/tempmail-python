@@ -1,5 +1,6 @@
 import time
 import random
+from datetime import datetime
 from dataclasses import dataclass
 
 import requests
@@ -81,6 +82,10 @@ class OneSecMail:
         _mail: 'OneSecMail'
 
         @property
+        def date(self) -> datetime:
+            return datetime.fromisoformat(self.date_str)
+
+        @property
         def message(self) -> 'OneSecMail.Message':
             return self._mail.get_message(self.id)
 
@@ -99,12 +104,20 @@ class OneSecMail:
         id: int
         from_addr: str
         subject: str
-        date: str
+        date_str: str
         body: str
         test_body: str
         html_body: str
         _mail: 'OneSecMail'
         _attachments: list[dict[str, any]]
+
+        @property
+        def date(self) -> datetime:
+            return datetime.fromisoformat(self.date_str)
+
+        @property
+        def attachments(self) -> list['OneSecMail.Attachment']:
+            return [OneSecMail.Attachment.from_dict(self._mail, self.id, attachment) for attachment in self._attachments]
 
         @classmethod
         def from_dict(cls, mail: 'OneSecMail', msg: dict[str, any]) -> 'OneSecMail.Message':
@@ -114,15 +127,11 @@ class OneSecMail:
                 id=msg['id'],
                 from_addr=msg['from'],
                 subject=msg['subject'],
-                date=msg['date'],
+                date_str=msg['date'],
                 body=msg['textBody'],
                 test_body=msg['textBody'],
                 html_body=msg['htmlBody'],
                 )
-
-        @property
-        def attachments(self) -> list['OneSecMail.Attachment']:
-            return [OneSecMail.Attachment.from_dict(self._mail, self.id, attachment) for attachment in self._attachments]
 
     @dataclass
     class Attachment:
