@@ -128,7 +128,7 @@ class OneSecMail:
                 from_addr=msg['from'],
                 subject=msg['subject'],
                 date_str=msg['date'],
-                body=msg['textBody'],
+                body=msg['body'],
                 text_body=msg['textBody'],
                 html_body=msg['htmlBody'],
                 )
