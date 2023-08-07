@@ -106,7 +106,7 @@ class OneSecMail:
         subject: str
         date_str: str
         body: str
-        test_body: str
+        text_body: str
         html_body: str
         _mail: 'OneSecMail'
         _attachments: list[dict[str, any]]
@@ -129,7 +129,7 @@ class OneSecMail:
                 subject=msg['subject'],
                 date_str=msg['date'],
                 body=msg['textBody'],
-                test_body=msg['textBody'],
+                text_body=msg['textBody'],
                 html_body=msg['htmlBody'],
                 )
 
