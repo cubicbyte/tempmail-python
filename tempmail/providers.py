@@ -70,8 +70,16 @@ class OneSecMail:
         resp.raise_for_status()
         return tuple(resp.json())
 
-    def __str__(self) -> str:
+    @property
+    def address(self) -> str:
+        """The full email address"""
         return f'{self.username}@{self.domain}'
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__} address={self.address!r}>'
+
+    def __str__(self) -> str:
+        return self.address
 
     @dataclass
     class MessageInfo:
