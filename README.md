@@ -66,7 +66,7 @@ def reddit_filter(msg):
     return (msg.from_addr == 'noreply@reddit.com' and
             msg.subject == 'Verify your Reddit email address')
 
-email = EMail('redditaccount@1secmail.com')
+email = EMail(address='redditaccount@1secmail.com')
 msg = email.wait_for_message(filter=reddit_filter)
 # get_activation_code(html=msg.html_body)
 ```
@@ -75,7 +75,6 @@ Some other features:
 ```python
 from tempmail.providers import OneSecMail
 
-# Accept only emails from a specific domain
 email = OneSecMail()
 
 # request_email(email=email.address)
