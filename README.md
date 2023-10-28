@@ -79,6 +79,9 @@ email = OneSecMail()
 
 # request_email(email=email.address)
 
+# Speed up inbox refresh rate
+OneSecMail.inbox_update_interval = 0.1  # every 100ms
+
 # Accept only emails with a specific subject, raise error after 60 seconds
 msg = email.wait_for_message(timeout=60, filter=lambda m: m.subject == 'Hello World!')
 print(msg.body)
