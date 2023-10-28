@@ -13,6 +13,9 @@ __all__ = ('OneSecMail',)
 class OneSecMail:
     """1secmail.com API wrapper"""
 
+    inbox_update_interval = 0.5
+    """How often to update the inbox in seconds"""
+
     def __init__(self, address: str | None = None, username: str | None = None, domain: str | None = None) -> None:
         """Create a new 1secmail.com email address
 
@@ -67,7 +70,7 @@ class OneSecMail:
             for msg_info in inbox:
                 if filter(msg_info.message):
                     return msg_info.message
-            time.sleep(1)
+            time.sleep(OneSecMail.inbox_update_interval)
 
         raise TimeoutError('Timed out waiting for message')
 
