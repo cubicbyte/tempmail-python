@@ -2,6 +2,7 @@ import time
 import random
 from datetime import datetime
 from dataclasses import dataclass
+from typing import Optional, List, Tuple, Dict
 
 import requests
 
@@ -16,7 +17,7 @@ class OneSecMail:
     inbox_update_interval = 0.5
     """How often to update the inbox in seconds"""
 
-    def __init__(self, address: str | None = None, username: str | None = None, domain: str | None = None) -> None:
+    def __init__(self, address: Optional[str] = None, username: Optional[str] = None, domain: Optional[str] = None) -> None:
         """Create a new 1secmail.com email address
 
         :param address: The full email address (username@domain)
@@ -36,7 +37,7 @@ class OneSecMail:
         self.domain = domain or random.choice(self.get_domains())
         """The domain of the email address (after the @)"""
 
-    def get_inbox(self) -> list['OneSecMail.MessageInfo']:
+    def get_inbox(self) -> List['OneSecMail.MessageInfo']:
         """Get the inbox of the email address"""
         resp = self._session.get(f'https://www.1secmail.com/api/v1/?action=getMessages&login={self.username}&domain={self.domain}')
         resp.raise_for_status()
@@ -56,7 +57,7 @@ class OneSecMail:
         resp.raise_for_status()
         return resp.content
 
-    def wait_for_message(self, timeout: int | None = 60, filter: callable = lambda _: True) -> 'OneSecMail.Message':
+    def wait_for_message(self, timeout: Optional[int] = 60, filter: callable = lambda _: True) -> 'OneSecMail.Message':
         """Wait for a message to arrive in the inbox
         
         :param timeout: How long to wait for a message to arrive, in seconds
@@ -76,7 +77,7 @@ class OneSecMail:
 
     @staticmethod
     @utils.cache
-    def get_domains() -> tuple[str, ...]:
+    def get_domains() -> Tuple[str, ...]:
         """List of allowed email domains"""
         resp = requests.get('https://www.1secmail.com/api/v1/?action=getDomainList')
         resp.raise_for_status()
@@ -118,7 +119,7 @@ class OneSecMail:
             return self._mail_instance.get_message(self.id)
 
         @classmethod
-        def from_dict(cls, mail_instance: 'OneSecMail', msg_info: dict[str, any]) -> 'OneSecMail.MessageInfo':
+        def from_dict(cls, mail_instance: 'OneSecMail', msg_info: Dict[str, any]) -> 'OneSecMail.MessageInfo':
             """Create a MessageInfo from a raw api response"""
             return cls(
                 _mail_instance=mail_instance,
@@ -155,12 +156,12 @@ class OneSecMail:
             return datetime.fromisoformat(self.date_str)
 
         @property
-        def attachments(self) -> list['OneSecMail.Attachment']:
+        def attachments(self) -> List['OneSecMail.Attachment']:
             """List of attachments in the message (files)"""
             return [OneSecMail.Attachment.from_dict(self._mail_instance, self.id, attachment) for attachment in self._attachments]
 
         @classmethod
-        def from_dict(cls, mail_instance: 'OneSecMail', msg: dict[str, any]) -> 'OneSecMail.Message':
+        def from_dict(cls, mail_instance: 'OneSecMail', msg: Dict[str, any]) -> 'OneSecMail.Message':
             """Create a Message from a raw api response"""
             return cls(
                 _mail_instance=mail_instance,
@@ -192,7 +193,7 @@ class OneSecMail:
             return self._mail_instance.download_attachment(self._message_id, self.filename)
 
         @classmethod
-        def from_dict(cls, mail_instance: 'OneSecMail', message_id: int, attachment: dict[str, any]) -> 'OneSecMail.Attachment':
+        def from_dict(cls, mail_instance: 'OneSecMail', message_id: int, attachment: Dict[str, any]) -> 'OneSecMail.Attachment':
             """Create an Attachment from a raw api response"""
             return cls(
                 _mail_instance=mail_instance,
