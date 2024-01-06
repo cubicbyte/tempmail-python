@@ -1,14 +1,16 @@
 import time
 import random
+from typing import Dict, Optional, Tuple, List, Callable
 from datetime import datetime
 from dataclasses import dataclass
-from typing import Optional, List, Tuple, Dict
 
 import requests
 
 from . import utils
 
-__all__ = ('OneSecMail',)
+__all__ = (
+    'OneSecMail',
+)
 
 
 class OneSecMail:
@@ -17,7 +19,12 @@ class OneSecMail:
     inbox_update_interval = 0.5
     """How often to update the inbox in seconds"""
 
-    def __init__(self, address: Optional[str] = None, username: Optional[str] = None, domain: Optional[str] = None) -> None:
+    def __init__(
+        self,
+        address: Optional[str] = None,
+        username: Optional[str] = None,
+        domain: Optional[str] = None,
+    ) -> None:
         """Create a new 1secmail.com email address
 
         :param address: The full email address (username@domain)
@@ -57,7 +64,8 @@ class OneSecMail:
         resp.raise_for_status()
         return resp.content
 
-    def wait_for_message(self, timeout: Optional[int] = 60, filter: callable = lambda _: True) -> 'OneSecMail.Message':
+    def wait_for_message(self, timeout: Optional[int] = 60,
+                         filter: Callable[['OneSecMail.Message'], bool] = lambda _: True) -> 'OneSecMail.Message':
         """Wait for a message to arrive in the inbox
         
         :param timeout: How long to wait for a message to arrive, in seconds
@@ -148,7 +156,7 @@ class OneSecMail:
         html_body: str
         "Message body (html format)"
         _mail_instance: 'OneSecMail'
-        _attachments: list[dict[str, any]]
+        _attachments: List[Dict[str, any]]
 
         @property
         def date(self) -> datetime:
@@ -158,7 +166,8 @@ class OneSecMail:
         @property
         def attachments(self) -> List['OneSecMail.Attachment']:
             """List of attachments in the message (files)"""
-            return [OneSecMail.Attachment.from_dict(self._mail_instance, self.id, attachment) for attachment in self._attachments]
+            return [OneSecMail.Attachment.from_dict(self._mail_instance, self.id, attachment)
+                    for attachment in self._attachments]
 
         @classmethod
         def from_dict(cls, mail_instance: 'OneSecMail', msg: Dict[str, any]) -> 'OneSecMail.Message':

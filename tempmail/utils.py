@@ -11,7 +11,7 @@ def random_string(length: int):
 
 def cache(func):
     """Cache the result of a function with saved type hints"""
-    @functools.lru_cache
+    @functools.lru_cache(maxsize=128)
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         return func(*args, **kwargs)
