@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
+
 def read(path: str) -> str:
     with open(path, 'r', encoding='utf-8') as f:
         return f.read()
+
 
 setup(
     name='tempmail-python',
@@ -13,12 +15,13 @@ setup(
     author='cubicbyte',
     author_email='bmaruhnenko@gmail.com',
     url='https://github.com/cubicbyte/tempmail-python',
-    packages = find_packages(),
+    packages=find_packages(),
     license='MIT',
     keywords='disposable-email temporary-email temp-email temp-mail email mail email-generator mail-generator',
     install_requires=[
         'requests>=2.19.0',
     ],
+    python_requires='>=3.7',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python :: 3',

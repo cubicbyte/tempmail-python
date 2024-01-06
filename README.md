@@ -1,4 +1,7 @@
 # Python Temp Email Library
+
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads)
+
 **tempmail-python** is a Python library for generating and managing temporary email addresses using the 1secmail service. It provides functions for creating email addresses, checking for new messages, and retrieving message contents.
 
 ## Installation
